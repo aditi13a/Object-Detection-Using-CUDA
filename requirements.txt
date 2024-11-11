@@ -6,3 +6,4 @@ pandas
 streamlit
 Pillow
 uuid
+transformers
