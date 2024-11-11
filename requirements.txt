@@ -6,4 +6,3 @@ pandas
 streamlit
 Pillow
 uuid
-sqlite3
