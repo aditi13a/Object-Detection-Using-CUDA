@@ -6,3 +6,7 @@ pandas
 streamlit
 Pillow
 uuid
+echo "streamlit==1.23.1
+transformers==4.35.0
+opencv-python==4.7.0.72
+sqlite3==3.36.0" 
