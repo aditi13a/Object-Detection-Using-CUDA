@@ -1,11 +1,10 @@
 torch==2.5.1
+numpy<2
 torchvision
 opencv-python-headless
-numpy
 pandas
 streamlit
 Pillow
 uuid
 transformers
 typing-extensions
-
