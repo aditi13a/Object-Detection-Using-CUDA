@@ -1,7 +1,7 @@
 torch==2.5.1
 torchvision
 opencv-python-headless
-numpy
+numpy<2
 pandas
 streamlit
 Pillow
