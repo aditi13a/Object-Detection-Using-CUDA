@@ -7,3 +7,5 @@ streamlit
 Pillow
 uuid
 transformers
+sqlite3
+typing-extensions
