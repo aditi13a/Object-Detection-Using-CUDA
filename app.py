@@ -169,7 +169,7 @@ if uploaded_file is not None:
     
     # Display results in Streamlit
     st.markdown(f"<h3 style='color:#28a745;'>Generated Caption:</h3>", unsafe_allow_html=True)
-    st.write(f"{refined_caption}")
+    st.write(f"**{refined_caption}**")
 
     # Display images with styling
     col1, col2 = st.columns([1, 2])
@@ -184,6 +184,6 @@ c.execute("SELECT label, score, box, image FROM detections WHERE user_id = ?", (
 rows = c.fetchall()
 
 for label, score, box, image_data in rows:
-    st.sidebar.write(f"*Label:* {label}, *Score:* {score:.2f}, *Box:* {box}")
+    st.sidebar.write(f"**Label:** {label}, **Score:** {score:.2f}, **Box:** {box}")
     image_np = cv2.imdecode(np.frombuffer(image_data, np.uint8), cv2.IMREAD_COLOR)
     st.sidebar.image(cv2.cvtColor(image_np, cv2.COLOR_BGR2RGB), caption="Detection Image", use_column_width=True)
