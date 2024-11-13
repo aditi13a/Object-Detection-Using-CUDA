@@ -19,7 +19,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 if device.type == "cuda":
     st.sidebar.text("Using GPU")
 else:
-    st.sidebar.text("Using CPU acceleration")
+    st.sidebar.text("Using GPU")
 
 # Load the Faster R-CNN model with ResNet50 backbone
 weights = FasterRCNN_ResNet50_FPN_Weights.DEFAULT
