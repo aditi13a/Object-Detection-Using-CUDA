@@ -88,7 +88,7 @@ def detect_objects(image_np, threshold=0.5):
 def save_results_to_db(results, image_np):
     conn = sqlite3.connect('detections.db')
     c = conn.cursor()
-    
+
     for label, score, box in results:
         try:
             # Check for existing entry
@@ -100,11 +100,16 @@ def save_results_to_db(results, image_np):
             if not exists:
                 _, img_encoded = cv2.imencode('.jpg', image_np)
                 image_binary = img_encoded.tobytes()
+                
+                # Add a description placeholder (e.g., empty string)
+                description = ""  # Or generate dynamically if needed
+
+                # Insert including the description field
                 c.execute("INSERT INTO detections (user_id, label, score, box, image, description) VALUES (?, ?, ?, ?, ?, ?)", 
-                          (user_id, str(label), float(score), str(box), image_binary))
+                          (user_id, str(label), float(score), str(box), image_binary, description))
         except sqlite3.Error as e:
             st.error(f"An error occurred: {e}")
-    
+
     conn.commit()
     conn.close()
     export_database()
