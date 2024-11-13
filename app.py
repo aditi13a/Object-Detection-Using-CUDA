@@ -34,7 +34,7 @@ gpt_model = GPT2LMHeadModel.from_pretrained("gpt2")
 gpt_tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
 
 # Initialize SQLite database
-conn = sqlite3.connect('/tmp/detections.db')
+conn = sqlite3.connect('detections.db')
 c = conn.cursor()
 c.execute('''CREATE TABLE IF NOT EXISTS detections (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
