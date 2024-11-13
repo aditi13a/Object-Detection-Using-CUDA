@@ -120,11 +120,8 @@ def generate_enhanced_caption(image):
 
    # Encode the initial prompt for GPT-2
     input_ids = gpt_tokenizer.encode(initial_prompt, return_tensors="pt")
-    attention_mask = torch.ones(input_ids.shape, device=input_ids.device)
-
     initial_caption_ids = gpt_model.generate(
         input_ids,
-        attention_mask=attention_mask,
         max_length=70,
         num_return_sequences=1,
         do_sample=True,
