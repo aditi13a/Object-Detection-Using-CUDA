@@ -99,7 +99,7 @@ def save_results_to_db(results, image_np):
             if not exists:
                 _, img_encoded = cv2.imencode('.jpg', image_np)
                 image_binary = img_encoded.tobytes()
-                c.execute("INSERT INTO detections (user_id, label, score, box, image) VALUES (?, ?, ?, ?, ?)", 
+                c.execute("INSERT INTO detections (user_id, label, score, box, image, description) VALUES (?, ?, ?, ?, ?, ?)", 
                           (user_id, str(label), float(score), str(box), image_binary))
         except sqlite3.Error as e:
             st.error(f"An error occurred: {e}")
