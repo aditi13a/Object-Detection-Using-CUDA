@@ -42,8 +42,7 @@ c.execute('''CREATE TABLE IF NOT EXISTS detections (
     label TEXT,
     score REAL,
     box TEXT,
-    image BLOB,
-    description TEXT
+    image BLOB
 )''')
 conn.commit()
 
@@ -88,7 +87,7 @@ def detect_objects(image_np, threshold=0.5):
 def save_results_to_db(results, image_np):
     conn = sqlite3.connect('detections.db')
     c = conn.cursor()
-
+    
     for label, score, box in results:
         try:
             # Check for existing entry
@@ -100,16 +99,11 @@ def save_results_to_db(results, image_np):
             if not exists:
                 _, img_encoded = cv2.imencode('.jpg', image_np)
                 image_binary = img_encoded.tobytes()
-                
-                # Add a description placeholder (e.g., empty string)
-                description = ""  # Or generate dynamically if needed
-
-                # Insert including the description field
-                c.execute("INSERT INTO detections (user_id, label, score, box, image, description) VALUES (?, ?, ?, ?, ?, ?)", 
-                          (user_id, str(label), float(score), str(box), image_binary, description))
+                c.execute("INSERT INTO detections (user_id, label, score, box, image) VALUES (?, ?, ?, ?, ?)", 
+                          (user_id, str(label), float(score), str(box), image_binary))
         except sqlite3.Error as e:
             st.error(f"An error occurred: {e}")
-
+    
     conn.commit()
     conn.close()
     export_database()
@@ -124,7 +118,7 @@ def generate_enhanced_caption(image):
     # Initial prompt for GPT-2 based on a general descriptive request
     initial_prompt = "This image shows a scene with detailed description: "
 
-   # Encode the initial prompt for GPT-2
+    # Encode the initial prompt for GPT-2
     input_ids = gpt_tokenizer.encode(initial_prompt, return_tensors="pt")
     initial_caption_ids = gpt_model.generate(
         input_ids,
@@ -133,7 +127,6 @@ def generate_enhanced_caption(image):
         do_sample=True,
         temperature=0.7
     )
-
     initial_caption = gpt_tokenizer.decode(initial_caption_ids[0], skip_special_tokens=True)
 
     # Refine the caption by feeding it back into GPT-2
