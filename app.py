@@ -55,7 +55,7 @@ user_id = st.session_state['user_id']
 def export_database():
     c.execute("SELECT * FROM detections")
     rows = c.fetchall()
-    df = pd.DataFrame(rows, columns=['ID', 'User_ID', 'Label', 'Score', 'Box', 'Image', 'Description'])
+    df = pd.DataFrame(rows, columns=['ID', 'User_ID', 'Label', 'Score', 'Box', 'Image'])
     csv_path = 'detection_data_all_users.csv'
     df.to_csv(csv_path, index=False)
     return csv_path
