@@ -42,7 +42,8 @@ c.execute('''CREATE TABLE IF NOT EXISTS detections (
     label TEXT,
     score REAL,
     box TEXT,
-    image BLOB
+    image BLOB,
+    description TEXT
 )''')
 conn.commit()
 
