@@ -118,15 +118,19 @@ def generate_enhanced_caption(image):
     # Initial prompt for GPT-2 based on a general descriptive request
     initial_prompt = "This image shows a scene with detailed description: "
 
-    # Encode the initial prompt for GPT-2
+   # Encode the initial prompt for GPT-2
     input_ids = gpt_tokenizer.encode(initial_prompt, return_tensors="pt")
+    attention_mask = torch.ones(input_ids.shape, device=input_ids.device)
+
     initial_caption_ids = gpt_model.generate(
         input_ids,
+        attention_mask=attention_mask,
         max_length=70,
         num_return_sequences=1,
         do_sample=True,
         temperature=0.7
     )
+
     initial_caption = gpt_tokenizer.decode(initial_caption_ids[0], skip_special_tokens=True)
 
     # Refine the caption by feeding it back into GPT-2
